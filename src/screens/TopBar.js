@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Alert,
-} from 'react-native';
+import { Alert } from 'react-native';
 import styled from 'styled-components/native';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {getDrawerInstance} from './Drawer';
+
+const notImplemented = () => Alert.alert( 'WIP', 'Not Implemented Yet!', [{text: 'OK' }], { cancelable: true } );
 
 export default class TopBar extends Component {
+  toggleDrawer = () => {
+    const drawer = getDrawerInstance();
+    drawer && drawer.toggleDrawer();
+  };
   render() {
     return (
       <Container>
-        <MenuIcon > golabi </MenuIcon>
+        <MenuIcon onPress={this.toggleDrawer}/>
         <Caption balance={1000} accountType={'Virtual Account'} />
-        <AddIcon > add </AddIcon>
+        <AddIcon onPress={notImplemented}/>
       </Container>
     );
   }
@@ -28,9 +31,33 @@ const Container = styled.View`
   background-color: white;
 `;
 
-const AddIcon = styled.Text``;
-const MenuIcon = styled.Text`
-`;
+const AddIcon = (() => {
+  const Icon = styled(EvilIcons).attrs({name: 'plus', color: 'black'})`
+    font-size: 30px;
+    padding: 15px 10px;
+  `;
+  const Touchable = styled.TouchableWithoutFeedback`
+  `;
+  return ({onPress}) => (
+    <Touchable onPressIn={onPress}>
+      <Icon />
+    </Touchable>
+  );
+})();
+
+const MenuIcon = (() => {
+  const Icon = styled(FontAwesome).attrs({name: 'bars', color: 'black'})`
+    font-size: 20px;
+    padding: 15px 15px 15px 0px;
+  `;
+  const Touchable = styled.TouchableWithoutFeedback`
+  `;
+  return ({onPress}) => (
+    <Touchable onPressIn={onPress}>
+      <Icon />
+    </Touchable>
+  );
+})();
 
 const Caption = (() => {
   const Balance = styled.Text`
