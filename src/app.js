@@ -8,7 +8,6 @@ registerScreens();
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'Home',
-    title: 'Home', // (optional)
     topTabs: [
       {
         screenId: 'Home.PortfolioTab',
@@ -19,6 +18,9 @@ Navigation.startSingleScreenApp({
         title: 'Trade',
       }
     ],
+  },
+  appStyle: {
+    navigationBarColor: 'black',
   },
   drawer: {
     left: {

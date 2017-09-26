@@ -1,15 +1,18 @@
 import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 
+
 import Home from './Home';
 import Drawer from './Drawer';
 import TradeTab from './TradeTab';
 import PortfolioTab from './PortfolioTab';
+import TopBar from './TopBar';
 
 export function registerScreens() {
   Navigation.registerComponent('Drawer', () => Drawer);
   Navigation.registerComponent('Home', () => Home);
   Navigation.registerComponent('Home.PortfolioTab', () => PortfolioTab);
   Navigation.registerComponent('Home.TradeTab', () => TradeTab);
+  Navigation.registerComponent('TopBar', () => TopBar);
 }
 
 export function registerScreenVisibilityListener() {
