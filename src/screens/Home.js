@@ -15,14 +15,19 @@ class Home extends Component {
     topTabTextColor: 'rgba(0,0,0, .2)',
     selectedTopTabTextColor: 'black',
 
-    // Icons
-    topTabIconColor: '#ffffff',
-    selectedTopTabIconColor: '#ff505c',
+    // topTabIconColor: '#ffffff',
+    // selectedTopTabIconColor: '#ff505c',
 
     // Tab indicator
-    selectedTopTabIndicatorHeight: PixelRatio.get() * 5,
-    selectedTopTabIndicatorColor: 'red',
+    selectedTopTabIndicatorHeight: PixelRatio.get() * 3 | 0,
+    selectedTopTabIndicatorColor: 'black',
 
+  };
+  static navigatorButtons = {
+    leftButtons: [ {
+      id: 'sideMenu'
+    }],
+    rightButtons: [ ],
   };
 
   render() {

@@ -10,13 +10,13 @@ Navigation.startSingleScreenApp({
     screen: 'Home',
     topTabs: [
       {
+        screenId: 'Home.TradeTab',
+        title: 'Trade',
+      },
+      {
         screenId: 'Home.PortfolioTab',
         title: 'Portfolio',
       },
-      {
-        screenId: 'Home.TradeTab',
-        title: 'Trade',
-      }
     ],
   },
   appStyle: {

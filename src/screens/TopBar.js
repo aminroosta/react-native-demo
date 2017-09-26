@@ -2,20 +2,13 @@ import React, {Component} from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {getDrawerInstance} from './Drawer';
 
 const notImplemented = () => Alert.alert( 'WIP', 'Not Implemented Yet!', [{text: 'OK' }], { cancelable: true } );
 
 export default class TopBar extends Component {
-  toggleDrawer = () => {
-    const drawer = getDrawerInstance();
-    drawer && drawer.toggleDrawer();
-  };
   render() {
     return (
       <Container>
-        <MenuIcon onPress={this.toggleDrawer}/>
         <Caption balance={1000} accountType={'Virtual Account'} />
         <AddIcon onPress={notImplemented}/>
       </Container>
@@ -35,20 +28,6 @@ const AddIcon = (() => {
   const Icon = styled(EvilIcons).attrs({name: 'plus', color: 'black'})`
     font-size: 30px;
     padding: 15px 10px;
-  `;
-  const Touchable = styled.TouchableWithoutFeedback`
-  `;
-  return ({onPress}) => (
-    <Touchable onPressIn={onPress}>
-      <Icon />
-    </Touchable>
-  );
-})();
-
-const MenuIcon = (() => {
-  const Icon = styled(FontAwesome).attrs({name: 'bars', color: 'black'})`
-    font-size: 20px;
-    padding: 15px 15px 15px 0px;
   `;
   const Touchable = styled.TouchableWithoutFeedback`
   `;
