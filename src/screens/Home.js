@@ -12,6 +12,7 @@ class Home extends Component {
     navBarComponentAlignment: 'fill',
 
     topTabsHeight: 30,
+    topTabsScrollable: false,
     topTabTextColor: 'rgba(0,0,0, .2)',
     selectedTopTabTextColor: 'black',
 

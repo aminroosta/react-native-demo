@@ -25,7 +25,8 @@ public class MainApplication extends NavigationApplication {
     // Add additional packages you require here
     // No need to add RnnPackage and MainReactPackage
     return Arrays.<ReactPackage>asList(
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            new BinaryPackage()
         );
   }
 
