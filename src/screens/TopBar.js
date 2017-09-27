@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Alert, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {toggleDrawer} from '../screens/Drawer';
 
 const notImplemented = () => Alert.alert( 'WIP', 'Not Implemented Yet!', [{text: 'OK' }], { cancelable: true } );
 
@@ -9,7 +11,7 @@ export default class TopBar extends Component {
   render() {
     return (
       <Container>
-        <AddIcon onPress={notImplemented}/>
+        <MenuIcon onPress={toggleDrawer}/>
         <Caption balance={1000} accountType={'Virtual Account'} />
         <AddIcon onPress={notImplemented}/>
         <BorderBottom />
@@ -24,7 +26,7 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: powderblue;
+  background-color: white;
 `;
 const BorderBottom = styled.View`
   height: 0.5px;
@@ -34,12 +36,22 @@ const BorderBottom = styled.View`
   background-color: black;
 `;
 
+const Touchable = styled.TouchableWithoutFeedback``;
 const AddIcon = (() => {
   const Icon = styled(EvilIcons).attrs({name: 'plus', color: 'black'})`
     font-size: 30px;
     padding: 15px 10px;
   `;
-  const Touchable = styled.TouchableWithoutFeedback`
+  return ({onPress}) => (
+    <Touchable onPressIn={onPress}>
+      <Icon />
+    </Touchable>
+  );
+})();
+const MenuIcon = (() => {
+  const Icon = styled(MaterialCommunityIcons).attrs({name: 'menu', color: 'black'})`
+    font-size: 30px;
+    padding: 15px 10px;
   `;
   return ({onPress}) => (
     <Touchable onPressIn={onPress}>
