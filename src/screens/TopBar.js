@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert } from 'react-native';
+import { Alert, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
@@ -9,8 +9,10 @@ export default class TopBar extends Component {
   render() {
     return (
       <Container>
+        <AddIcon onPress={notImplemented}/>
         <Caption balance={1000} accountType={'Virtual Account'} />
         <AddIcon onPress={notImplemented}/>
+        <BorderBottom />
       </Container>
     );
   }
@@ -18,10 +20,18 @@ export default class TopBar extends Component {
 
 const Container = styled.View`
   flex: 1;
+  width: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
+  background-color: powderblue;
+`;
+const BorderBottom = styled.View`
+  height: 0.5px;
+  width: ${Dimensions.get('window').width}px;
+  position: absolute;
+  bottom: 0;
+  background-color: black;
 `;
 
 const AddIcon = (() => {

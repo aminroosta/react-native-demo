@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
 import styled from 'styled-components/native';
-import LineChart from '../components/LineChart';
-import {View, Text} from 'react-native';
+import TradeChartView from '../components/TradeChartView';
 
 class TradeTab extends Component {
-
   render() {
     return (
       <Container>
-        <Chart />
+        <ChartView />
+        <Bottom />
       </Container>
     );
   }
 };
 
-const Container = styled.View``;
-const Chart = styled(LineChart)`
+const Container = styled.View`
+  flex: 1;
+  background: white;
+`;
+const Bottom = styled.View`
+  flex: 1;
+  background-color: skyblue;
+`;
+const ChartView = styled(TradeChartView)`
+  height: ${300}px;
   width: 100%;
-  height: 300px;
-  border: 1px solid red;
 `;
 
 export default TradeTab;

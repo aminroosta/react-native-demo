@@ -11,7 +11,7 @@ class Home extends Component {
     navBarBackgroundColor: 'white',
     navBarComponentAlignment: 'fill',
 
-    topTabsHeight: 30,
+    topTabsHeight: 40,
     topTabsScrollable: false,
     topTabTextColor: 'rgba(0,0,0, .2)',
     selectedTopTabTextColor: 'black',
@@ -25,9 +25,9 @@ class Home extends Component {
 
   };
   static navigatorButtons = {
-    leftButtons: [ {
-      id: 'sideMenu'
-    }],
+    leftButtons: [
+      // { id: 'sideMenu' }
+    ],
     rightButtons: [ ],
   };
 
