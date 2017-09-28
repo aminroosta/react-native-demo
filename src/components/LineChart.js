@@ -30,6 +30,19 @@ export default class LineChartViewWrapper extends Component {
     return true;
   }
 
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      history.prices.push(history.prices.shift());
+      history.times.shift();
+      history.times.push((+history.times[history.times.length-1] + 2)+'');
+      this.forceUpdate();
+    }, 200);
+  };
+  componentWillUnmount() {
+    this.interval && clearInterval(this.interval);
+    this.interval = null;
+  }
+
   render() {
     // const xs = this.props.data.map(d => d.x);
     // const ys = this.props.data.map(d => d.y);

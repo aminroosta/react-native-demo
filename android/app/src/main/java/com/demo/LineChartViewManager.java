@@ -100,15 +100,17 @@ public class LineChartViewManager extends SimpleViewManager<LineChart> {
 
         LineData data = chart.getData();
 
-        ILineDataSet set = data.getDataSetByIndex(0);
-        boolean firstTime = false;
-        if (set == null) {
-            set = createSet();
-            data.addDataSet(set);
-            firstTime = true;
-        }
+        boolean firstTime = !data.removeDataSet(0);
+        ILineDataSet set = createSet();
+        data.addDataSet(set);
+//        boolean firstTime = false;
+//        if (set == null) {
+//            set = createSet();
+//            data.addDataSet(set);
+//            firstTime = true;
+//        }
 
-        if(startEpoch == 0) { startEpoch = xsArray.getInt(0); }
+        startEpoch = xsArray.getInt(0);
         endEpoch = xsArray.getInt(xsArray.size() - 1);
 
         for (int inx = 0; inx < size; ++inx) {

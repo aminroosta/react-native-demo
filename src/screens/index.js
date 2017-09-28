@@ -1,5 +1,5 @@
 import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
-
+import {Stores, MobxProvider} from '../stores';
 
 import Home from './Home';
 import Drawer from './Drawer';
@@ -8,11 +8,11 @@ import PortfolioTab from './PortfolioTab';
 import TopBar from './TopBar';
 
 export function registerScreens() {
-  Navigation.registerComponent('Drawer', () => Drawer);
-  Navigation.registerComponent('Home', () => Home);
-  Navigation.registerComponent('Home.PortfolioTab', () => PortfolioTab);
-  Navigation.registerComponent('Home.TradeTab', () => TradeTab);
-  Navigation.registerComponent('TopBar', () => TopBar);
+  Navigation.registerComponent('Drawer', () => Drawer, Stores, MobxProvider);
+  Navigation.registerComponent('Home', () => Home, Stores, MobxProvider);
+  Navigation.registerComponent('Home.PortfolioTab', () => PortfolioTab, Stores, MobxProvider);
+  Navigation.registerComponent('Home.TradeTab', () => TradeTab, Stores, MobxProvider);
+  Navigation.registerComponent('TopBar', () => TopBar, Stores, MobxProvider);
 }
 
 export function registerScreenVisibilityListener() {
