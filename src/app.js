@@ -21,6 +21,7 @@ Navigation.startSingleScreenApp({
   },
   appStyle: {
     navigationBarColor: 'black',
+    orientation: 'portrait',
   },
   drawer: {
     left: {

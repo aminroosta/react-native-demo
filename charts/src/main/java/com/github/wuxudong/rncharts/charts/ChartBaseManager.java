@@ -10,6 +10,7 @@ import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.github.mikephil.charting.animation.Easing.EasingOption;
 import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -128,6 +129,9 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
 
         Description description = new Description();
 
+        if (BridgeUtils.validate(propMap, ReadableType.Boolean, "enabled")) {
+            description.setEnabled(propMap.getBoolean("enabled"));
+        }
         if (BridgeUtils.validate(propMap, ReadableType.String, "text")) {
             description.setText(propMap.getString("text"));
         }
@@ -379,6 +383,9 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     @ReactProp(name = "data")
     public void setData(Chart chart, ReadableMap propMap) {
         chart.setData(getDataExtract().extract(propMap));
+        if ( chart instanceof  LineChart) {
+            ((LineChart) chart).setVisibleXRange(5, 50);
+        }
         chart.invalidate();
     }
 

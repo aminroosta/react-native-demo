@@ -1,59 +1,137 @@
-import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import { requireNativeComponent, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  processColor,
+} from 'react-native';
 
-var iface = {  
-  name: 'LineChartView',
-  propTypes: {
-    data: PropTypes.shape({
-      xs: PropTypes.arrayOf(PropTypes.number),
-      ys: PropTypes.arrayOf(PropTypes.number),
-    }),
-    ...View.propTypes
-  }
-}
+import {LineChart} from 'react-native-charts-wrapper';
 
-const LineChartView = requireNativeComponent('LineChartViewManager', iface);
+class LineChartScreen extends React.Component {
 
-export default class LineChartViewWrapper extends Component {
-  isDataUpdated(oldData, newData) {
-    if(oldData.length === 0)
-      return false;
-    if(oldData.length > newData.length)
-      return false;
-    for(var i = 0; i < oldData.length; i++) {
-      const a = oldData[i];
-      const b = newData[i];
-      if(a.x !== b.x || a.y !== b.y)
-        return false;
-    }
-    return true;
+  constructor() {
+    super();
+    this.state = {
+      data: {},
+      marker: {
+        enabled: true,
+        backgroundTint: processColor('teal'),
+	      markerColor: processColor('#F0C0FF8C'),
+        textColor: processColor('white'),
+
+      },
+      xAxis: {
+        valueFormatter: ['Q1', 'Q2', 'Q3', 'Q4'],
+        drawGridLines: false,
+        drawAxisLine: false,
+        position: 'BOTTOM',
+      },
+      yAxis: {
+        left: {
+          drawLabels: true,
+          drawAxisLine: false,
+          drawGridLines: false,
+        },
+        right: {
+          enabled: false
+        }
+      }
+    };
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => {
-      history.prices.push(history.prices.shift());
-      history.times.shift();
-      history.times.push((+history.times[history.times.length-1] + 2)+'');
-      this.forceUpdate();
-    }, 200);
-  };
-  componentWillUnmount() {
-    this.interval && clearInterval(this.interval);
-    this.interval = null;
+    const data = {
+      dataSets: [
+        {
+          // values: [{y: 90}, {y: 130}, {y: 100}, {y: 105}],
+          values: history.prices.map(p => ({y: +p})).slice(0, 200),
+          label: 'Company Y',
+          config: {
+            lineWidth: 1,
+            drawCircles: false,
+            drawCubicIntensity: 0.4,
+            circleRadius: 2,
+            drawHighlightIndicators: false,
+            color: processColor('blue'),
+            drawFilled: true,
+            fillAlpha: 45,
+            fillColor: processColor('blue'),
+            circleColor: processColor('blue'),
+            // dashedLine: { lineLength: 20, spaceLength: 10 }
+          }
+        },
+      ],
+    };
+    this.setState({data});
+  }
+
+  handleSelect(event) {
+    let entry = event.nativeEvent
+    if (entry == null) {
+      this.setState({...this.state, selectedEntry: null})
+    } else {
+      this.setState({...this.state, selectedEntry: JSON.stringify(entry)})
+    }
   }
 
   render() {
-    // const xs = this.props.data.map(d => d.x);
-    // const ys = this.props.data.map(d => d.y);
-    const xs = history.times.map(p => +p);
-    const ys = history.prices.map(t => +t);
-    return <LineChartView style={this.props.style} data={{
-      xs: xs,
-      ys: ys
-    }} />
+
+    return (
+      <View style={{flex: 1}}>
+
+        <View style={styles.container}>
+          <LineChart
+            style={styles.chart}
+            data={this.state.data}
+            chartDescription={{enabled: false}}
+            legend={{enabled: false}}
+            marker={this.state.marker}
+            xAxis={this.state.xAxis}
+            yAxis={this.state.yAxis}
+            drawGridBackground={false}
+            borderColor={processColor('teal')}
+            borderWidth={1}
+            drawBorders={false}
+            maxVisibleValueCount={5}
+            autoScaleMinMaxEnabled={true}
+
+            touchEnabled={true}
+            dragEnabled={true}
+            scaleEnabled={false}
+            scaleXEnabled={true}
+            scaleYEnabled={false}
+            pinchZoom={true}
+            doubleTapToZoomEnabled={true}
+
+            dragDecelerationEnabled={true}
+            dragDecelerationFrictionCoef={0.99}
+
+            keepPositionOnRotation={false}
+            onSelect={this.handleSelect.bind(this)}
+          />
+        </View>
+
+        <View style={{height:50, position: 'absolute', backgroundColor: 'transparent'}}>
+          <Text> {this.state.selectedEntry}</Text>
+        </View>
+
+      </View>
+    );
   }
-};
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF'
+  },
+  chart: {
+    flex: 1
+  }
+});
+
+export default LineChartScreen;
 
 const history = {
   "prices": [
@@ -2058,6 +2136,6 @@ const history = {
     "1506479994",
     "1506479996",
     "1506479998",
-    "1506480000"
+    "1506480000",
   ]
 }
