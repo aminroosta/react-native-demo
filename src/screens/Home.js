@@ -25,9 +25,7 @@ class Home extends Component {
 
   };
   static navigatorButtons = {
-    leftButtons: [
-      // { id: 'sideMenu' }
-    ],
+    leftButtons: [ ],
     rightButtons: [ ],
   };
 

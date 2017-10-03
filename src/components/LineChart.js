@@ -17,7 +17,7 @@ class LineChartScreen extends React.Component {
       marker: {
         enabled: true,
         backgroundTint: processColor('teal'),
-	      markerColor: processColor('#F0C0FF8C'),
+	      markerColor: processColor('black'),
         textColor: processColor('white'),
 
       },
@@ -45,19 +45,19 @@ class LineChartScreen extends React.Component {
       dataSets: [
         {
           // values: [{y: 90}, {y: 130}, {y: 100}, {y: 105}],
-          values: history.prices.map(p => ({y: +p})).slice(0, 200),
-          label: 'Company Y',
+          values: history.prices.map(p => ({y: +p})),
+          label: 'R_50',
           config: {
             lineWidth: 1,
-            drawCircles: false,
+            drawCircles: true,
             drawCubicIntensity: 0.4,
             circleRadius: 2,
             drawHighlightIndicators: false,
-            color: processColor('blue'),
+            color: processColor('#4A4A4A'),
             drawFilled: true,
             fillAlpha: 45,
-            fillColor: processColor('blue'),
-            circleColor: processColor('blue'),
+            fillColor: processColor('#4A4A4A'),
+            circleColor: processColor('#4A4A4A'),
             // dashedLine: { lineLength: 20, spaceLength: 10 }
           }
         },
@@ -99,13 +99,13 @@ class LineChartScreen extends React.Component {
             touchEnabled={true}
             dragEnabled={true}
             scaleEnabled={false}
-            scaleXEnabled={true}
+            scaleXEnabled={false}
             scaleYEnabled={false}
-            pinchZoom={true}
-            doubleTapToZoomEnabled={true}
+            pinchZoom={false}
+            doubleTapToZoomEnabled={false}
 
             dragDecelerationEnabled={true}
-            dragDecelerationFrictionCoef={0.99}
+            dragDecelerationFrictionCoef={0.9}
 
             keepPositionOnRotation={false}
             onSelect={this.handleSelect.bind(this)}

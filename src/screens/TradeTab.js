@@ -11,7 +11,7 @@ class TradeTab extends Component {
   render() {
     return (
       <Container>
-        <ChartView />
+        <TradeChartView />
         <Parameters />
         <Payout />
         <PurchaseRow />
@@ -24,17 +24,19 @@ const Container = styled.View`
   flex: 1;
   background: white;
 `;
-const ChartView = styled(TradeChartView)`
-  flex: 1;
-  width: 100%;
-`;
 
 const Parameters = (() => {
-  const Container = styled(Animatable.View)`
+  const Container = styled(Animatable.View).attrs({
+    transition: ['translateY'],
+    easing: 'ease',
+    duration: 300,
+    useNativeDriver: true
+  })`
     flex-direction: row;
     width: 100%;
     height: 100px;
     padding: 4px;
+    transform: translateY(${p => p.chartMode === 'big' ? 80 : 0}px);
   `;
   const Touchable = styled.TouchableWithoutFeedback``;
   const Wrapper = styled.View.attrs({elevation: 3})`
@@ -64,8 +66,8 @@ const Parameters = (() => {
     </Touchable>
   );
 
-  const Parameters = ({tradeType, startTime, duration}) => (
-    <Container>
+  const Parameters = ({tradeType, startTime, duration, chartMode}) => (
+    <Container chartMode={chartMode}>
       <Box value={tradeType} title={'Trade Type'} onPress={notImplemented} />
       <Box value={startTime} title={'Start Time'} onPress={notImplemented} />
       <Box value={duration} title={'< Duration >'} onPress={notImplemented} />
@@ -75,13 +77,25 @@ const Parameters = (() => {
     ({trade}) => ({
       tradeType: trade.tradeType,
       startTime: trade.startTime,
+      chartMode: trade.chartMode,
       duration: `${trade.duration} ${trade.durationUnit}`
     }),
   )(Parameters);
 })();
 
 const Payout = (() => {
-  const Touchable = styled.TouchableWithoutFeedback`
+  const Touchable = styled.TouchableWithoutFeedback` `;
+  const Container = styled(Animatable.View).attrs({
+    transition: ['translateY', 'opacity'],
+    easing: 'ease',
+    duration: 300,
+    useNativeDriver: true,
+  })`
+    padding: 4px 8px;
+    width: 100%;
+    height: 80px;
+    transform: translateY(${p => p.chartMode === 'big' ? 80 : 0}px);
+    opacity: ${p => p.chartMode === 'big' ? 0 : 1};
   `;
   const Text = styled(Animatable.Text).attrs({transition: 'color', duration: 300})`
     font-size: 12px;
@@ -105,11 +119,6 @@ const Payout = (() => {
     font-weight: bold;
     margin: 0 10px;
   `;
-  const Container = styled.View`
-    padding: 4px 8px;
-    width: 100%;
-    height: 80px;
-  `;
   const Wrapper = styled.View.attrs({elevation: 3})`
     flex: 1;
     justify-content: flex-start;
@@ -119,8 +128,8 @@ const Payout = (() => {
     padding-left: 10px;
     background-color: white;
   `;
-  const Payout = ({payoutType, setPayout, setStake, amount, onAmountChange}) => (
-    <Container>
+  const Payout = ({payoutType, setPayout, setStake, amount, onAmountChange, chartMode}) => (
+    <Container chartMode={chartMode}>
       <Wrapper>
         <Button active={payoutType === 'payout'} onPress={setPayout}>Payout</Button>
         <Button active={payoutType === 'stake'} onPress={setStake}>Stake</Button>
@@ -134,6 +143,7 @@ const Payout = (() => {
       setPayout: () => trade.payoutType = 'payout',
       setStake: () => trade.payoutType = 'stake',
       amount: trade.amount+'',
+      chartMode: trade.chartMode,
       onAmountChange: text => trade.amount = +text
     })
   )(Payout);

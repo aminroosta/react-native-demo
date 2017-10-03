@@ -384,7 +384,7 @@ public abstract class ChartBaseManager<T extends Chart, U extends Entry> extends
     public void setData(Chart chart, ReadableMap propMap) {
         chart.setData(getDataExtract().extract(propMap));
         if ( chart instanceof  LineChart) {
-            ((LineChart) chart).setVisibleXRange(5, 50);
+            ((LineChart) chart).setVisibleXRange(5, 40);
         }
         chart.invalidate();
     }
